@@ -8,7 +8,7 @@ public class Alarm : MonoBehaviour
     [SerializeField] private AudioSource _audioSource;
 
     private float _volumeStep = 0.5f;
-    private bool runCoroutine = false;
+    private bool _runCoroutine = false;
     private float _maxAlarmVolume = 1;
     private float _minAlarmVolume = 0;
 
@@ -33,7 +33,7 @@ public class Alarm : MonoBehaviour
     {
         _audioSource.Play();
 
-        if (runCoroutine == false)
+        if (_runCoroutine == false)
         {
             StartCoroutine(ChangeVolume(_maxAlarmVolume));
         }
@@ -41,7 +41,7 @@ public class Alarm : MonoBehaviour
 
     private void DisableAlarm()
     {
-        if (runCoroutine == false)
+        if (_runCoroutine == false)
         {
             StartCoroutine(ChangeVolume(_minAlarmVolume));
         }  
@@ -54,7 +54,7 @@ public class Alarm : MonoBehaviour
 
     private IEnumerator ChangeVolume(float target)
     {
-        runCoroutine = true;
+        _runCoroutine = true;
 
         while (_audioSource.volume != target)
         {
@@ -62,6 +62,6 @@ public class Alarm : MonoBehaviour
             yield return null;
         }
 
-        runCoroutine = false;
+        _runCoroutine = false;
     }
 }
