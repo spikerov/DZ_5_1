@@ -19,17 +19,17 @@ public class Alarm : MonoBehaviour
 
     private void OnEnable()
     {
-        _door.DoorOpened += ActiveAlarm;
-        _door.DoorClosed += DisableAlarm;
+        _door.DoorOpened += OnDoorOpened;
+        _door.DoorClosed += OnDoorClosed;
     }
 
     private void OnDisable()
     {
-        _door.DoorOpened -= ActiveAlarm;
-        _door.DoorClosed -= DisableAlarm;
+        _door.DoorOpened -= OnDoorOpened;
+        _door.DoorClosed -= OnDoorClosed;
     }
 
-    private void ActiveAlarm()
+    private void OnDoorOpened()
     {
         _audioSource.Play();
 
@@ -39,7 +39,7 @@ public class Alarm : MonoBehaviour
         }
     }
 
-    private void DisableAlarm()
+    private void OnDoorClosed()
     {
         if (_runCoroutine == false)
         {
