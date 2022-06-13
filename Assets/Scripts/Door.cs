@@ -3,11 +3,8 @@ using UnityEngine.Events;
 
 public class Door : MonoBehaviour
 {
-    private float _maxLarmVolume = 1;
-    private float _minLarmVolume = 0;
-
-    public event UnityAction<float> IsOpen;
-    public event UnityAction<float> DoorClose;
+    public event UnityAction DoorOpened;
+    public event UnityAction DoorClosed;
 
     public bool IsDoorOpen { get; private set; }
     public bool IsDooClose { get; private set; }
@@ -17,7 +14,7 @@ public class Door : MonoBehaviour
 
         if (collision.TryGetComponent<Player>(out Player player))
         {
-            IsOpen.Invoke(_maxLarmVolume);
+            DoorOpened.Invoke();
         }
     }
 
@@ -25,7 +22,7 @@ public class Door : MonoBehaviour
     {
         if (collision.TryGetComponent<Player>(out Player player))
         {
-            DoorClose.Invoke(_minLarmVolume);
+            DoorClosed.Invoke();
         }
     }
 }
